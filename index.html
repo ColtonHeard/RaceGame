@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first html</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="canv"></canvas>
+
+    <script type="module">
+        import { getCanvas, ease, bounce } from "./Engine/scripts.js"
+        import Time from "./Engine/Time.js"
+        import Input from "./Engine/Input.js"
+        import Game from "./Engine/Game.js"
+
+        // import AsteroidScene from "./Game/AsteroidScene.js"
+        // import EnemyScene from "./Game/EnemyScene.js"
+        // import CollisionTestScene from "./Game/CollisionTestScene.js"
+        import TestScene from "./Race_Game/TestScene.js"
+
+        // import Constants from "./Game/Constants.js"
+
+        Input.attach(document);
+
+        let { canvas, ctx } = getCanvas();
+
+        //Define the model
+        Game.setActiveScene(new TestScene(canvas));
+
+        //console.log(Game.getActiveScene().getGameObjects());
+
+        function tick() {
+            Input.update()
+            Game.update();
+            Game.draw(ctx);
+            Game.remove();
+            Time.timePassed += Time.secondsBetweenFrame;
+        }
+
+        setInterval(tick, Time.millisecondsBetweenFrames)
+
+    </script>
+</body>
+
+</html>
